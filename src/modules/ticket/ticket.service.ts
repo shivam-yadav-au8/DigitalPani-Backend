@@ -53,7 +53,6 @@ export class TicketService {
     const key: any = Object.entries(result[l - 1]);
     const id: string = key[0][1].trim();
     const assignee_new = await this.userModel.findOne({ assignee_id: id });
-    console.log(assignee_new._id);
     const nextWeek = new Date(firstDay.getTime() + 7 * 24 * 60 * 60 * 1000);
     const new_ticket = await this.userTicket.findByIdAndUpdate(idd, {
       assignee_id: assignee_new._id.valueOf(),
@@ -67,19 +66,16 @@ export class TicketService {
   }
   async deleteTicket(ticket) {
     const { ticket_id } = ticket;
-    console.log(ticket_id);
     return await this.userTicket
       .findByIdAndRemove(ticket_id)
       .then(() => {
         return ticket_success.ticket_deleted;
       })
       .catch((err) => {
-        console.log(err);
         return ticket.failed_to_delete_ticket;
       });
   }
   async getTicket(id) {
-    console.log(id);
     const tickets = await this.userTicket.find({
       $or: [{ reporter_id: { $eq: id } }, { asignee_id: { $eq: id } }],
     });
@@ -90,7 +86,6 @@ export class TicketService {
   }
   async updateTicket(updateData) {
     const { progress, priority, id } = updateData;
-    console.log(updateData);
     const response = await this.userTicket.findOneAndUpdate(
       { _id: id },
       { $set: { progress: progress, priority: priority } },

@@ -3,7 +3,6 @@ let client;
 export async function redis_connection() {
   client = redis.createClient();
   client.on('connect', () => {
-    console.log('redis connected');
   });
 }
 export async function redis_set(key, val) {

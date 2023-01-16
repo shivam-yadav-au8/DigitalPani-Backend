@@ -37,7 +37,6 @@ export class UserService {
 
   async create(RegisterDTO: RegisterDTO) {
     const { email } = RegisterDTO;
-    console.log(email);
     const user = await this.userModel.findOne({
       $or: [{ email: { $eq: email } }],
     });
@@ -91,7 +90,6 @@ export class UserService {
     const user = await this.userModel.findOne({
       $or: [{ email: { $eq: email } }, { phone_no: { $eq: phone_no } }],
     });
-    console.log(user);
     if (user) {
       return registration_error.fail_reg;
     } else {
@@ -126,7 +124,6 @@ export class UserService {
   async getAllUserData(User: UserSearchDTO) {
     const { email } = User;
     const userData = await this.userModel.findOne({ email });
-    console.log(userData);
     return userData;
   }
   async delete_ticket(ticket_id) {

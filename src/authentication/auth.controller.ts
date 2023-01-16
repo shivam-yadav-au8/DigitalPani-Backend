@@ -93,7 +93,6 @@ export class AuthController {
     @Body() checkRegister: CheckRegisterDTO,
     @Res() res,
   ) {
-    console.log(checkRegister);
     const validate = await this.authService.validateToken(headers);
     if (validate) {
       const user = await this.userService.check_register(checkRegister);
@@ -128,7 +127,6 @@ export class AuthController {
   async delete_ticket(@Headers() headers, @Body() ticket_id, @Res() res) {
     const validate = await this.authService.validateToken(headers);
     if (validate) {
-      console.log(ticket_id);
       const ticket = await this.userService.delete_ticket(ticket_id);
       return res.status(200).send({
         ticket,
